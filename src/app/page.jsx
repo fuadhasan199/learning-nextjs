@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Home() {
   return (
      <div>
-       Welcome to Fuad Zone 
+     Welcome to next Home page
       </div>
   );
 }

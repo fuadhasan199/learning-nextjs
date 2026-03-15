@@ -6,9 +6,12 @@ const Header = () => {
            <header className="p-5 border-b-3 border-red-600">
              <Link className="text-4xl p-5 text-green-600" href={'/'}>Dev Story</Link> 
         
-        <nav>
+        <nav className='flex gap-4'>
              <Link href={'/About'}> About
-             </Link>
+             </Link> 
+
+             <Link href={'/login'}>Login</Link> 
+             <Link href={'/register'}>Register</Link> 
         </nav>
 
         </header>

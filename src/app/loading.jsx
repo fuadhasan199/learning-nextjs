@@ -1,0 +1,12 @@
+import React from 'react';
+
+const Loading = () => {
+    return (
+       <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-green-500"></div>
+      <h2 className="ml-4 text-xl font-semibold">লোড হচ্ছে, দয়া করে অপেক্ষা করুন...</h2>
+    </div>
+    );
+};
+
+export default Loading;

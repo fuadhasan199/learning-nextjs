@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 
         <Header></Header> 
 
-        <main className="p-5">
+        <main className="p-5"> 
    {children}
         </main>
 

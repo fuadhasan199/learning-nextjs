@@ -1,6 +1,56 @@
-import React from 'react';
+"use client"
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
-const login = () => {
+import React, { useState } from 'react';
+
+const login = () => { 
+
+
+ const [email,setEmail]=useState("")
+ const [password,setPassword]=useState("")
+ const [error,setError]=useState("")
+ const [loading,setLoading]=useState(false)
+ const router=useRouter()
+
+ const handleLogin=async(e)=>{
+   e.preventDefault()
+   setLoading(true)
+   setError("") 
+
+   try{
+   const res=await signIn("credentials",{
+       email:email,
+       password:password,
+       redirect:false,
+   }) 
+   if(res.error){
+     setError("Invalid email or password")
+     setLoading(false)
+   } 
+   else{ 
+    setLoading(false)
+     router.push("/")
+   }
+ } 
+ catch (err) {
+            setError("Something went wrong!");
+            setLoading(false);
+        }
+ } 
+ 
+
+
+
+
+
+
+
+
+
+
+
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-5xl grid md:grid-cols-2 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-white/10 backdrop-blur-xl">
@@ -33,7 +83,7 @@ const login = () => {
         </div>
 
         {/* Right Side */}
-        <div className="bg-white p-6 sm:p-8 md:p-10 lg:p-12">
+        <div className=" p-6 sm:p-8 md:p-10 lg:p-12">
           <div className="max-w-md mx-auto">
             <div className="mb-8 text-center md:text-left">
               <h2 className="text-3xl font-bold text-slate-800">Login</h2>
@@ -42,26 +92,26 @@ const login = () => {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form onSubmit={handleLogin} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium  mb-2">
                   Email Address
                 </label>
                 <input
-                  type="email"
+                  type="email" required onChange={(e)=>setEmail(e.target.value)}
                   placeholder="Enter your email"
                   className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium  mb-2">
                   Password
                 </label>
                 <input
-                  type="password"
+                  type="password" onChange={(e)=>setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3  rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -70,27 +120,24 @@ const login = () => {
                   <input type="checkbox" className="rounded border-slate-300" />
                   Remember me
                 </label>
-                <a href="/" className="text-indigo-600 font-medium hover:underline">
+                <Link href="/" className="text-indigo-600 font-medium hover:underline">
                   Forgot password?
-                </a>
+                </Link>
               </div>
 
               <button
-                type="button"
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition duration-300 shadow-lg shadow-indigo-200"
-              >
-                Sign In
-              </button>
+                     type="submit"
+                         className="w-full bg-indigo-600 ..."
+                          disabled={loading}>
 
-              {/* Loading Button Design Only */}
-              <button
-                type="button"
-                className="w-full bg-slate-900 text-white font-semibold py-3 rounded-xl flex items-center justify-center gap-2 opacity-90"
-              >
-                <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                Loading...
-              </button>
+                   {loading ? "Signing In..." : "Sign In"}
+</button>
             </form>
+            {error && (
+  <p className="text-red-500 text-sm mt-2">
+    {error}
+  </p>
+)}
 
             <p className="text-sm text-center text-slate-500 mt-6">
               Don’t have an account?{" "}

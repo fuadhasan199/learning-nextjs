@@ -1,7 +1,33 @@
+"use client"
+import { Postuser } from '@/action/server/auth';
 import Link from 'next/link';
 import React from 'react';
 
-const register = () => {
+const register = () => { 
+
+    
+     const handleRegister=async (e)=>{
+       e.preventDefault() 
+       const Form=e.target  
+
+        
+      const name=Form.name.value
+      const email=Form.email.value 
+       const password=Form.password.value  
+       
+      
+      
+
+
+        
+        
+     } 
+      
+  
+
+  
+
+
     return (
        <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-6xl grid md:grid-cols-2 rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-white/10 backdrop-blur-xl">
@@ -42,15 +68,15 @@ const register = () => {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form onSubmit={handleRegister} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
                   Full Name
                 </label>
                 <input
-                  type="text"
+                  type="text" name='name'
                   placeholder="Enter your full name"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full  text-black px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -59,9 +85,9 @@ const register = () => {
                   Email Address
                 </label>
                 <input
-                  type="email"
+                  type="email" name='email'
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full px-4 text-black py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -70,25 +96,16 @@ const register = () => {
                   Password
                 </label>
                 <input
-                  type="password"
+                  type="password" name='password'
                   placeholder="Create password"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 text-black rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Confirm password"
-                  className="w-full px-4 py-3 rounded-xl border border-slate-200 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-                />
-              </div>
+           
 
               <button
-                type="button"
+                type="submit"
                 className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition duration-300 shadow-lg shadow-indigo-200"
               >
                 Create Account

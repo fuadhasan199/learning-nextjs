@@ -5,6 +5,7 @@ import Credentials from "next-auth/providers/credentials"
 
 const userList=[
      {   id:1,
+      name:"Fuad",
         email:"fuad@gmail.com",
         password:"123456"
      } 

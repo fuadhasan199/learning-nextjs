@@ -9,19 +9,21 @@ const register = () => {
      const handleRegister=async (e)=>{
        e.preventDefault() 
        const Form=e.target  
+       const FormData={ 
 
-        
-      const name=Form.name.value
-      const email=Form.email.value 
-       const password=Form.password.value  
+            
+       name:Form.name.value ,
+        email:Form.email.value ,
+       password:Form.password.value  ,
+       createdAt:new Date().toISOString() ,
+       role:"user"
+         
+       } 
+       Postuser( FormData) 
+       e.target.reset()
+
+      } 
        
-      
-      
-
-
-        
-        
-     } 
       
   
 

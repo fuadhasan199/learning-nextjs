@@ -35,7 +35,13 @@ if(result.acknowledged){
         success:true,
         message:"user created successfully"
     }
-} 
+}  
+else{
+     return{
+          success:false,
+          message:"something went wrong"
+     }
+}
 }
 
 

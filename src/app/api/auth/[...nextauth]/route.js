@@ -22,9 +22,7 @@ export const authOptions = {
       const user=await dbConnect("users").findOne({email:credentials.email}) 
       if(!user) return null
 
-      // const user = userList.find(
-      //   (u) => u.email === credentials.email
-      // )
+    
 
       
       const isPassword=await bcrypt.compare(credentials.password,user.password)
@@ -33,7 +31,8 @@ export const authOptions = {
       return {
         id: user._id.toString(),
         email: user.email,
-        user:user.name
+        name:user.name ,
+        role:user.role
       }
     }
   })
@@ -41,7 +40,35 @@ export const authOptions = {
 
   session: {
     strategy: "jwt"
+  } ,
+
+callbacks: {
+  async signIn({ user,account,profile,credentials}) {
+    return true
+  },
+  async redirect({ url, baseUrl }) {
+    return baseUrl
+  },
+  async session({ session, token, user }) { 
+    if(token){
+      session.role=token.role
+    }
+    return session
+  },
+  async jwt({ token, user, account, profile, isNewUser }) { 
+       if(user) {
+       token.email=user.email 
+       token.role=user.role
+     }
+    return token
   }
+}
+
+
+
+
+
+
 }
 const handler =NextAuth(authOptions)
 

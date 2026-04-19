@@ -6,8 +6,8 @@ import bcrypt from "bcryptjs";
 export const Postuser=async (payload) =>{
      console.log(payload)
  
-
-const isExists=await dbConnect("users").findOne({email:payload.email}) 
+const userCollection=await dbConnect("users")
+const isExists=await dbConnect(userCollection).findOne({email:payload.email}) 
 if(isExists){
      return {
         success:false,

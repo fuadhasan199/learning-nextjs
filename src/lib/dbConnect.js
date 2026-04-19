@@ -1,15 +1,23 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = process.env.DB_uri;
-const dbname=process.env.Db_name
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+import { MongoClient, ServerApiVersion } from 'mongodb'  // ✅ import use করো
+
+const uri = process.env.DB_uri
+const dbname = process.env.Db_name
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
   }
-}); 
+})
 
-export const dbConnect=(cname)=>{
-     return  client.db(dbname).collection(cname)
+let isConnected = false  // বারবার connect এড়াতে
+
+export const dbConnect = async (cname) => {
+  if (!isConnected) {
+    await client.connect()
+    isConnected = true
+    console.log("MongoDB Connected ✅")
+  }
+  return client.db(dbname).collection(cname)
 }

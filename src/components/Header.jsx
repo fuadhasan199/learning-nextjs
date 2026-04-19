@@ -15,6 +15,7 @@ const Header = () => {
              <Link href={'/login'}>Login</Link> 
              <Link href={'/register'}>Register</Link> 
                 <Link href={'/showDAta'}>show data</Link> 
+                  <Link href={'/private'}>private</Link> 
                      <button onClick={()=>signOut({callbackUrl:"/"})}>Logout</button>
 
         </nav> 

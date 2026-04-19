@@ -19,7 +19,7 @@ const register = () => {
        role:"user"
          
        } 
-       Postuser( FormData) 
+       await Postuser( FormData) 
        e.target.reset()
 
       } 

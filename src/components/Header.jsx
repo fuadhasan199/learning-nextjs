@@ -1,3 +1,5 @@
+"use client"
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,7 +15,10 @@ const Header = () => {
              <Link href={'/login'}>Login</Link> 
              <Link href={'/register'}>Register</Link> 
                 <Link href={'/showDAta'}>show data</Link> 
-        </nav>
+                     <button onClick={()=>signOut({callbackUrl:"/"})}>Logout</button>
+
+        </nav> 
+    
 
         </header>
     );

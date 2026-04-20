@@ -131,7 +131,9 @@ const login = () => {
                           disabled={loading}>
 
                    {loading ? "Signing In..." : "Sign In"}
-</button>
+</button> 
+
+  <button onClick={()=>signIn('google')} className='w-full bg-indigo-600 ...'>Sign in with Google </button>
             </form>
             {error && (
   <p className="text-red-500 text-sm mt-2">

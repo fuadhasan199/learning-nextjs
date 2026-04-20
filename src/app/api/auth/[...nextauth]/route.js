@@ -1,7 +1,7 @@
 import { dbConnect } from "@/lib/dbConnect"
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 
 
@@ -14,7 +14,10 @@ export const authOptions = {
     credentials: {
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" }
-    },
+    },  
+ 
+    
+   
 
     async authorize(credentials) {
       if (!credentials?.email || !credentials?.password) return null 
@@ -37,7 +40,15 @@ export const authOptions = {
         role:user.role
       }
     }
+  }) ,
+       
+       GoogleProvider({
+    clientId: process.env.Goggle_Client_ID,
+    clientSecret: process.env.Goggle_Client_secret
   })
+    
+
+  
 ],
 
   session: {
@@ -45,7 +56,17 @@ export const authOptions = {
   } ,
 
 callbacks: {
-  async signIn({ user,account,profile,credentials}) {
+  async signIn({ user,account,profile,credentials}) { 
+
+   if(account?.provider==="google"){
+    const userCollection=await dbConnect("users") 
+    const isExists=await userCollection.findOne({email:user.email}) 
+    if(!isExists){
+       await userCollection.insertOne({...user,role:"user"})
+    }
+
+   }
+
     return true
   },
   async redirect({ url, baseUrl }) {
